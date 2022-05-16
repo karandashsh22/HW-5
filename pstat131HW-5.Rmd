@@ -35,6 +35,33 @@ pokemon <- filter(pokemon, type_1=='Bug'|type_1=='Fire'|type_1=='Grass'|type_1==
 pokemon
 ```
 
+```{r}
+pokemon <- pokemon %>%
+  mutate(type_1 = factor(type_1)) %>%
+  mutate(legendary = factor(legendary))
+pokemon
+```
+```{r}
+set.seed(2000)
+pokemon_split <- initial_split(pokemon, prop = 0.75, strata = type_1)
+pokemon_test <- testing(pokemon_split)
+pokemon_train <- training(pokemon_split)
+```
+
+```{r}
+dim(pokemon_train)
+dim(pokemon_test)
+```
+```{r}
+pokemon_folds <- vfold_cv(pokemon_train, v = 5, strata = type_1)
+pokemon_folds
+```
+```{r}
+pokemon_recipe <- recipe(type_1 ~ legendary+generation+sp_atk+attack+speed+defense+hp+sp_def, data = pokemon_train) %>% 
+  step_dummy(c(legendary, generation)) %>%
+  step_center(all_predictors()) %>% 
+  step_scale(all_predictors()) 
+```
 
 
 
