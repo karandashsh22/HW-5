@@ -1,0 +1,43 @@
+---
+title: "hw-5"
+author: "Hector He"
+date: "5/15/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+pokemon <- read.csv('~/Desktop/Spring 2022/PSTAT 131/homework/homework-5/data/Pokemon.csv')
+library(tidymodels)
+library(tidyverse)
+library(readr)
+library(dplyr)
+head(pokemon, n = 8)
+```
+
+```{r}
+library(janitor)
+pokemon <- clean_names(pokemon)
+head(pokemon)
+```
+
+```{r}
+#ggplot(data = pokemon, aes(x = type_1)) + geom_bar()
+ggplot(data = pokemon, aes(x = reorder(factor(type_1), type_1, function(x)-length(x)))) + geom_bar() + labs(x = 'type_1')
+```
+Type 1 Poison, Fighting, Steel, Ice, Fairy, Flying have less than 30 counts, especially Type 1 Flying has less than 10 counts
+
+```{r}
+pokemon <- filter(pokemon, type_1=='Bug'|type_1=='Fire'|type_1=='Grass'|type_1=='Normal'|type_1=='Water'|type_1=='Psychic')
+pokemon
+```
+
+
+
+
+
+
+
