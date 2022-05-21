@@ -2,7 +2,9 @@
 title: "hw-5"
 author: "Hector He"
 date: "5/15/2022"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -18,12 +20,19 @@ library(dplyr)
 head(pokemon, n = 8)
 ```
 
+Exercise 1
+Install and load the janitor package. Use its clean_names() function on the Pokémon data, and save the results to work with for the rest of the assignment. What happened to the data? Why do you think clean_names() is useful?
 ```{r}
 library(janitor)
 pokemon <- clean_names(pokemon)
 head(pokemon)
 ```
+column names are changed, now only including lower case letters and "_" symbols, which are easier to access
 
+
+Exercise 2
+Using the entire data set, create a bar chart of the outcome variable, type_1.
+How many classes of the outcome are there? Are there any Pokémon types with very few Pokémon? If so, which ones?
 ```{r}
 #ggplot(data = pokemon, aes(x = type_1)) + geom_bar()
 ggplot(data = pokemon, aes(x = reorder(factor(type_1), type_1, function(x)-length(x)))) + geom_bar() + labs(x = 'type_1')
@@ -32,15 +41,19 @@ Type 1 Poison, Fighting, Steel, Ice, Fairy, Flying have less than 30 counts, esp
 
 ```{r}
 pokemon <- filter(pokemon, type_1=='Bug'|type_1=='Fire'|type_1=='Grass'|type_1=='Normal'|type_1=='Water'|type_1=='Psychic')
-pokemon
+head(pokemon, n = 15)
 ```
-
 ```{r}
 pokemon <- pokemon %>%
   mutate(type_1 = factor(type_1)) %>%
   mutate(legendary = factor(legendary))
-pokemon
+tail(pokemon, n=10)
 ```
+
+
+Exercise 3
+Perform an initial split of the data. Stratify by the outcome variable. You can choose a proportion to use. Verify that your training and test sets have the desired number of observations.
+Next, use v-fold cross-validation on the training set. Use 5 folds. 
 ```{r}
 set.seed(2000)
 pokemon_split <- initial_split(pokemon, prop = 0.75, strata = type_1)
@@ -56,12 +69,75 @@ dim(pokemon_test)
 pokemon_folds <- vfold_cv(pokemon_train, v = 5, strata = type_1)
 pokemon_folds
 ```
+
+
+Exercise 4
+Set up a recipe to predict type_1 with legendary, generation, sp_atk, attack, speed, defense, hp, and sp_def.
 ```{r}
 pokemon_recipe <- recipe(type_1 ~ legendary+generation+sp_atk+attack+speed+defense+hp+sp_def, data = pokemon_train) %>% 
   step_dummy(c(legendary, generation)) %>%
   step_center(all_predictors()) %>% 
   step_scale(all_predictors()) 
 ```
+
+
+Exercise 5
+```{r}
+library(glmnet)
+pokemon_tuned <- 
+  multinom_reg(penalty = tune(), mixture = tune()) %>% 
+  set_mode("classification") %>% 
+  set_engine("glmnet")
+```
+
+```{r}
+pokemon_wkflow_tuning <- workflow() %>% 
+  add_recipe(pokemon_recipe) %>% 
+  add_model(pokemon_tuned)
+```
+
+
+Exercise 6
+```{r}
+pokemon_grid <- grid_regular(penalty(range = c(-5, 5)), mixture(range = c(0, 1)), levels = 10)
+pokemon_grid
+```
+There will be 10*10 = 100 models fitted into the folded data
+
+
+Exercise 7
+```{r}
+pokemon_tune_res <- tune_grid(pokemon_wkflow_tuning, resamples = pokemon_folds, grid = pokemon_grid)
+pokemon_tune_res
+```
+
+```{r}
+autoplot(pokemon_tune_res)
+```
+```{r}
+collect_metrics(pokemon_tune_res)
+```
+```{r}
+pokemon_best_tuned <- select_best(pokemon_tune_res, metric = "roc_auc")
+pokemon_best_tuned
+```
+```{r}
+pokemon_final <- finalize_workflow(pokemon_wkflow_tuning, pokemon_best_tuned)
+pokemon_final_fit <- fit(pokemon_final, data = pokemon_train)
+```
+
+
+Exercise 8
+```{r}
+augment(pokemon_final_fit, new_data = pokemon_test) %>% 
+  roc_auc(type_1, .pred_Bug:.pred_Water)
+```
+```{r}
+augment(pokemon_final_fit, new_data = pokemon_test) %>%
+  roc_curve(truth = type_1, estimate = .pred_Bug:.pred_Water) %>%
+  autoplot()
+```
+works the best on type "Grass"
 
 
 

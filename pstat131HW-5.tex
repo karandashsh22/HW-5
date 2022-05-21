@@ -1,0 +1,613 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={hw-5},
+            pdfauthor={Hector He},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{hw-5}
+\author{Hector He}
+\date{5/15/2022}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'~/Desktop/Spring 2022/PSTAT 131/homework/homework-5/data/Pokemon.csv'}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(tidymodels)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages -------------------------------------- tidymodels 0.2.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v broom        0.8.0     v recipes      0.2.0
+## v dials        0.1.1     v rsample      0.1.1
+## v dplyr        1.0.9     v tibble       3.1.7
+## v ggplot2      3.3.6     v tidyr        1.2.0
+## v infer        1.0.0     v tune         0.2.0
+## v modeldata    0.1.1     v workflows    0.2.6
+## v parsnip      0.2.1     v workflowsets 0.2.1
+## v purrr        0.3.4     v yardstick    0.0.9
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ----------------------------------------- tidymodels_conflicts() --
+## x purrr::discard() masks scales::discard()
+## x dplyr::filter()  masks stats::filter()
+## x dplyr::lag()     masks stats::lag()
+## x recipes::step()  masks stats::step()
+## * Use suppressPackageStartupMessages() to eliminate package startup messages
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v readr   2.1.2     v forcats 0.5.1
+## v stringr 1.4.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x readr::col_factor() masks scales::col_factor()
+## x purrr::discard()    masks scales::discard()
+## x dplyr::filter()     masks stats::filter()
+## x stringr::fixed()    masks recipes::fixed()
+## x dplyr::lag()        masks stats::lag()
+## x readr::spec()       masks yardstick::spec()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(readr)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{head}\NormalTok{(pokemon, }\DataTypeTok{n =} \DecValTok{8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   X.                      Name Type.1 Type.2 Total HP Attack Defense Sp..Atk
+## 1  1                 Bulbasaur  Grass Poison   318 45     49      49      65
+## 2  2                   Ivysaur  Grass Poison   405 60     62      63      80
+## 3  3                  Venusaur  Grass Poison   525 80     82      83     100
+## 4  3     VenusaurMega Venusaur  Grass Poison   625 80    100     123     122
+## 5  4                Charmander   Fire          309 39     52      43      60
+## 6  5                Charmeleon   Fire          405 58     64      58      80
+## 7  6                 Charizard   Fire Flying   534 78     84      78     109
+## 8  6 CharizardMega Charizard X   Fire Dragon   634 78    130     111     130
+##   Sp..Def Speed Generation Legendary
+## 1      65    45          1     False
+## 2      80    60          1     False
+## 3     100    80          1     False
+## 4     120    80          1     False
+## 5      50    65          1     False
+## 6      65    80          1     False
+## 7      85   100          1     False
+## 8      85   100          1     False
+\end{verbatim}
+
+Exercise 1 Install and load the janitor package. Use its clean\_names()
+function on the Pokémon data, and save the results to work with for the
+rest of the assignment. What happened to the data? Why do you think
+clean\_names() is useful?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(janitor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'janitor'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     chisq.test, fisher.test
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon <-}\StringTok{ }\KeywordTok{clean_names}\NormalTok{(pokemon)}
+\KeywordTok{head}\NormalTok{(pokemon)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   x                  name type_1 type_2 total hp attack defense sp_atk sp_def
+## 1 1             Bulbasaur  Grass Poison   318 45     49      49     65     65
+## 2 2               Ivysaur  Grass Poison   405 60     62      63     80     80
+## 3 3              Venusaur  Grass Poison   525 80     82      83    100    100
+## 4 3 VenusaurMega Venusaur  Grass Poison   625 80    100     123    122    120
+## 5 4            Charmander   Fire          309 39     52      43     60     50
+## 6 5            Charmeleon   Fire          405 58     64      58     80     65
+##   speed generation legendary
+## 1    45          1     False
+## 2    60          1     False
+## 3    80          1     False
+## 4    80          1     False
+## 5    65          1     False
+## 6    80          1     False
+\end{verbatim}
+
+column names are changed, now only including lower case letters and "\_"
+symbols, which are easier to access
+
+Exercise 2 Using the entire data set, create a bar chart of the outcome
+variable, type\_1. How many classes of the outcome are there? Are there
+any Pokémon types with very few Pokémon? If so, which ones?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#ggplot(data = pokemon, aes(x = type_1)) + geom_bar()}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ pokemon, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{reorder}\NormalTok{(}\KeywordTok{factor}\NormalTok{(type_}\DecValTok{1}\NormalTok{), type_}\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x)}\OperatorTok{-}\KeywordTok{length}\NormalTok{(x)))) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{'type_1'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pstat131HW-5_files/figure-latex/unnamed-chunk-3-1.pdf}
+Type 1 Poison, Fighting, Steel, Ice, Fairy, Flying have less than 30
+counts, especially Type 1 Flying has less than 10 counts
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(pokemon, type_}\DecValTok{1}\OperatorTok{==}\StringTok{'Bug'}\OperatorTok{|}\NormalTok{type_}\DecValTok{1}\OperatorTok{==}\StringTok{'Fire'}\OperatorTok{|}\NormalTok{type_}\DecValTok{1}\OperatorTok{==}\StringTok{'Grass'}\OperatorTok{|}\NormalTok{type_}\DecValTok{1}\OperatorTok{==}\StringTok{'Normal'}\OperatorTok{|}\NormalTok{type_}\DecValTok{1}\OperatorTok{==}\StringTok{'Water'}\OperatorTok{|}\NormalTok{type_}\DecValTok{1}\OperatorTok{==}\StringTok{'Psychic'}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(pokemon, }\DataTypeTok{n =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     x                      name type_1 type_2 total hp attack defense sp_atk
+## 1   1                 Bulbasaur  Grass Poison   318 45     49      49     65
+## 2   2                   Ivysaur  Grass Poison   405 60     62      63     80
+## 3   3                  Venusaur  Grass Poison   525 80     82      83    100
+## 4   3     VenusaurMega Venusaur  Grass Poison   625 80    100     123    122
+## 5   4                Charmander   Fire          309 39     52      43     60
+## 6   5                Charmeleon   Fire          405 58     64      58     80
+## 7   6                 Charizard   Fire Flying   534 78     84      78    109
+## 8   6 CharizardMega Charizard X   Fire Dragon   634 78    130     111    130
+## 9   6 CharizardMega Charizard Y   Fire Flying   634 78    104      78    159
+## 10  7                  Squirtle  Water          314 44     48      65     50
+## 11  8                 Wartortle  Water          405 59     63      80     65
+## 12  9                 Blastoise  Water          530 79     83     100     85
+## 13  9   BlastoiseMega Blastoise  Water          630 79    103     120    135
+## 14 10                  Caterpie    Bug          195 45     30      35     20
+## 15 11                   Metapod    Bug          205 50     20      55     25
+##    sp_def speed generation legendary
+## 1      65    45          1     False
+## 2      80    60          1     False
+## 3     100    80          1     False
+## 4     120    80          1     False
+## 5      50    65          1     False
+## 6      65    80          1     False
+## 7      85   100          1     False
+## 8      85   100          1     False
+## 9     115   100          1     False
+## 10     64    43          1     False
+## 11     80    58          1     False
+## 12    105    78          1     False
+## 13    115    78          1     False
+## 14     20    45          1     False
+## 15     25    30          1     False
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon <-}\StringTok{ }\NormalTok{pokemon }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{type_1 =} \KeywordTok{factor}\NormalTok{(type_}\DecValTok{1}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{legendary =} \KeywordTok{factor}\NormalTok{(legendary))}
+\KeywordTok{tail}\NormalTok{(pokemon, }\DataTypeTok{n=}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       x                name  type_1 type_2 total  hp attack defense sp_atk
+## 449 673              Gogoat   Grass          531 123    100      62     97
+## 450 676             Furfrou  Normal          472  75     80      60     65
+## 451 677              Espurr Psychic          355  62     48      54     63
+## 452 678        MeowsticMale Psychic          466  74     48      76     83
+## 453 678      MeowsticFemale Psychic          466  74     48      76     83
+## 454 692           Clauncher   Water          330  50     53      62     58
+## 455 693           Clawitzer   Water          500  71     73      88    120
+## 456 720 HoopaHoopa Confined Psychic  Ghost   600  80    110      60    150
+## 457 720  HoopaHoopa Unbound Psychic   Dark   680  80    160      60    170
+## 458 721           Volcanion    Fire  Water   600  80    110     120    130
+##     sp_def speed generation legendary
+## 449     81    68          6     False
+## 450     90   102          6     False
+## 451     60    68          6     False
+## 452     81   104          6     False
+## 453     81   104          6     False
+## 454     63    44          6     False
+## 455     89    59          6     False
+## 456    130    70          6      True
+## 457    130    80          6      True
+## 458     90    70          6      True
+\end{verbatim}
+
+Exercise 3 Perform an initial split of the data. Stratify by the outcome
+variable. You can choose a proportion to use. Verify that your training
+and test sets have the desired number of observations. Next, use v-fold
+cross-validation on the training set. Use 5 folds.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2000}\NormalTok{)}
+\NormalTok{pokemon_split <-}\StringTok{ }\KeywordTok{initial_split}\NormalTok{(pokemon, }\DataTypeTok{prop =} \FloatTok{0.75}\NormalTok{, }\DataTypeTok{strata =}\NormalTok{ type_}\DecValTok{1}\NormalTok{)}
+\NormalTok{pokemon_test <-}\StringTok{ }\KeywordTok{testing}\NormalTok{(pokemon_split)}
+\NormalTok{pokemon_train <-}\StringTok{ }\KeywordTok{training}\NormalTok{(pokemon_split)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(pokemon_train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 341  13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(pokemon_test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 117  13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_folds <-}\StringTok{ }\KeywordTok{vfold_cv}\NormalTok{(pokemon_train, }\DataTypeTok{v =} \DecValTok{5}\NormalTok{, }\DataTypeTok{strata =}\NormalTok{ type_}\DecValTok{1}\NormalTok{)}
+\NormalTok{pokemon_folds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## #  5-fold cross-validation using stratification 
+## # A tibble: 5 x 2
+##   splits           id   
+##   <list>           <chr>
+## 1 <split [270/71]> Fold1
+## 2 <split [271/70]> Fold2
+## 3 <split [273/68]> Fold3
+## 4 <split [274/67]> Fold4
+## 5 <split [276/65]> Fold5
+\end{verbatim}
+
+Exercise 4 Set up a recipe to predict type\_1 with legendary,
+generation, sp\_atk, attack, speed, defense, hp, and sp\_def.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_recipe <-}\StringTok{ }\KeywordTok{recipe}\NormalTok{(type_}\DecValTok{1} \OperatorTok{~}\StringTok{ }\NormalTok{legendary}\OperatorTok{+}\NormalTok{generation}\OperatorTok{+}\NormalTok{sp_atk}\OperatorTok{+}\NormalTok{attack}\OperatorTok{+}\NormalTok{speed}\OperatorTok{+}\NormalTok{defense}\OperatorTok{+}\NormalTok{hp}\OperatorTok{+}\NormalTok{sp_def, }\DataTypeTok{data =}\NormalTok{ pokemon_train) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{step_dummy}\NormalTok{(}\KeywordTok{c}\NormalTok{(legendary, generation)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{step_center}\NormalTok{(}\KeywordTok{all_predictors}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{step_scale}\NormalTok{(}\KeywordTok{all_predictors}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+Exercise 5
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(glmnet)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:tidyr':
+## 
+##     expand, pack, unpack
+\end{verbatim}
+
+\begin{verbatim}
+## Loaded glmnet 4.1-4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_tuned <-}\StringTok{ }
+\StringTok{  }\KeywordTok{multinom_reg}\NormalTok{(}\DataTypeTok{penalty =} \KeywordTok{tune}\NormalTok{(), }\DataTypeTok{mixture =} \KeywordTok{tune}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{set_mode}\NormalTok{(}\StringTok{"classification"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{set_engine}\NormalTok{(}\StringTok{"glmnet"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_wkflow_tuning <-}\StringTok{ }\KeywordTok{workflow}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{add_recipe}\NormalTok{(pokemon_recipe) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{add_model}\NormalTok{(pokemon_tuned)}
+\end{Highlighting}
+\end{Shaded}
+
+Exercise 6
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_grid <-}\StringTok{ }\KeywordTok{grid_regular}\NormalTok{(}\KeywordTok{penalty}\NormalTok{(}\DataTypeTok{range =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{)), }\KeywordTok{mixture}\NormalTok{(}\DataTypeTok{range =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)), }\DataTypeTok{levels =} \DecValTok{10}\NormalTok{)}
+\NormalTok{pokemon_grid}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 100 x 2
+##          penalty mixture
+##            <dbl>   <dbl>
+##  1      0.00001        0
+##  2      0.000129       0
+##  3      0.00167        0
+##  4      0.0215         0
+##  5      0.278          0
+##  6      3.59           0
+##  7     46.4            0
+##  8    599.             0
+##  9   7743.             0
+## 10 100000              0
+## # ... with 90 more rows
+\end{verbatim}
+
+There will be 10*10 = 100 models fitted into the folded data
+
+Exercise 7
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_tune_res <-}\StringTok{ }\KeywordTok{tune_grid}\NormalTok{(pokemon_wkflow_tuning, }\DataTypeTok{resamples =}\NormalTok{ pokemon_folds, }\DataTypeTok{grid =}\NormalTok{ pokemon_grid)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ! Fold1: preprocessor 1/1: The following variables are not factor vectors and wil...
+\end{verbatim}
+
+\begin{verbatim}
+## ! Fold2: preprocessor 1/1: The following variables are not factor vectors and wil...
+\end{verbatim}
+
+\begin{verbatim}
+## ! Fold3: preprocessor 1/1: The following variables are not factor vectors and wil...
+\end{verbatim}
+
+\begin{verbatim}
+## ! Fold4: preprocessor 1/1: The following variables are not factor vectors and wil...
+\end{verbatim}
+
+\begin{verbatim}
+## ! Fold5: preprocessor 1/1: The following variables are not factor vectors and wil...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_tune_res}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # Tuning results
+## # 5-fold cross-validation using stratification 
+## # A tibble: 5 x 4
+##   splits           id    .metrics           .notes          
+##   <list>           <chr> <list>             <list>          
+## 1 <split [270/71]> Fold1 <tibble [200 x 6]> <tibble [1 x 3]>
+## 2 <split [271/70]> Fold2 <tibble [200 x 6]> <tibble [1 x 3]>
+## 3 <split [273/68]> Fold3 <tibble [200 x 6]> <tibble [1 x 3]>
+## 4 <split [274/67]> Fold4 <tibble [200 x 6]> <tibble [1 x 3]>
+## 5 <split [276/65]> Fold5 <tibble [200 x 6]> <tibble [1 x 3]>
+## 
+## There were issues with some computations:
+## 
+##   - Warning(s) x5: The following variables are not factor vectors and will be ignore...
+## 
+## Use `collect_notes(object)` for more information.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{autoplot}\NormalTok{(pokemon_tune_res)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pstat131HW-5_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{collect_metrics}\NormalTok{(pokemon_tune_res)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 200 x 8
+##     penalty mixture .metric  .estimator  mean     n std_err .config             
+##       <dbl>   <dbl> <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
+##  1 0.00001        0 accuracy multiclass 0.367     5  0.0266 Preprocessor1_Model~
+##  2 0.00001        0 roc_auc  hand_till  0.717     5  0.0118 Preprocessor1_Model~
+##  3 0.000129       0 accuracy multiclass 0.367     5  0.0266 Preprocessor1_Model~
+##  4 0.000129       0 roc_auc  hand_till  0.717     5  0.0118 Preprocessor1_Model~
+##  5 0.00167        0 accuracy multiclass 0.367     5  0.0266 Preprocessor1_Model~
+##  6 0.00167        0 roc_auc  hand_till  0.717     5  0.0118 Preprocessor1_Model~
+##  7 0.0215         0 accuracy multiclass 0.373     5  0.0250 Preprocessor1_Model~
+##  8 0.0215         0 roc_auc  hand_till  0.716     5  0.0110 Preprocessor1_Model~
+##  9 0.278          0 accuracy multiclass 0.358     5  0.0178 Preprocessor1_Model~
+## 10 0.278          0 roc_auc  hand_till  0.692     5  0.0113 Preprocessor1_Model~
+## # ... with 190 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_best_tuned <-}\StringTok{ }\KeywordTok{select_best}\NormalTok{(pokemon_tune_res, }\DataTypeTok{metric =} \StringTok{"roc_auc"}\NormalTok{)}
+\NormalTok{pokemon_best_tuned}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##   penalty mixture .config               
+##     <dbl>   <dbl> <chr>                 
+## 1 0.00167   0.444 Preprocessor1_Model043
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pokemon_final <-}\StringTok{ }\KeywordTok{finalize_workflow}\NormalTok{(pokemon_wkflow_tuning, pokemon_best_tuned)}
+\NormalTok{pokemon_final_fit <-}\StringTok{ }\KeywordTok{fit}\NormalTok{(pokemon_final, }\DataTypeTok{data =}\NormalTok{ pokemon_train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: The following variables are not factor vectors and will be ignored:
+## `generation`
+\end{verbatim}
+
+Exercise 8
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{augment}\NormalTok{(pokemon_final_fit, }\DataTypeTok{new_data =}\NormalTok{ pokemon_test) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{roc_auc}\NormalTok{(type_}\DecValTok{1}\NormalTok{, .pred_Bug}\OperatorTok{:}\NormalTok{.pred_Water)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   <chr>   <chr>          <dbl>
+## 1 roc_auc hand_till      0.728
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{augment}\NormalTok{(pokemon_final_fit, }\DataTypeTok{new_data =}\NormalTok{ pokemon_test) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{roc_curve}\NormalTok{(}\DataTypeTok{truth =}\NormalTok{ type_}\DecValTok{1}\NormalTok{, }\DataTypeTok{estimate =}\NormalTok{ .pred_Bug}\OperatorTok{:}\NormalTok{.pred_Water) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{autoplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pstat131HW-5_files/figure-latex/unnamed-chunk-19-1.pdf}
+works the best on type ``Grass''
+
+\end{document}
